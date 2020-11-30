@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Apsara 飞天公链</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="npprogress.css">
+    <link rel="stylesheet" href="styles.bd8c3.css">
+    <link rel="stylesheet" href="bd8c3e60200f6ef59551.css">
+
+    <script src="jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+
+<div id="head" class="head">
+    <div class="headbox">
+        <img class="headboxlogo" src="img/logo-b.png">
+        <div class="searchbigbox">
+            <ul id="headlogo" class="headlogo">
+                <img src="img/logo-b.png">
+            </ul>
+            <ul class="searchsmbox">
+                <input id="search-keyword" placeholder="请输入搜索内容: FAA地址 / 交易哈希 / 区块号" class="fsearchbox">
+                <a class="head-a iconfont iconsearch searchicon" onclick="searchDetail()"></a>
+            </ul>
+        </div>
+        <div class="headiconbox">
+            <a class="iconfont iconhomepage_fill" href="/"><span>首页</span></a>
+            <a id="headshow" class="iconfont iconzhedie-copy-copy" style="display: none;"></a>
+        </div>
+    </div>
+</div>
+
+
+<div id="root" class="root">
+    <div class="theme-light">
+        <div class="ant-layout">
+            <div class="full-height ant-layout">
+
+                <div class="ant-layout-content">
+
+                    <div class="content-container" style="min-height: 360px;">
+                        <div class="warning-page">
+                            <div class="noresult-bg"></div>
+                            <p class="warning-tip"><span>对不起, 您要查询的数据不存在</span></p></div>
+                    </div>
+
+
+                    <div class="view-width">
+                        <div class="footer relative" id="footerContainer">
+                            <div class="footer-left"><a href="#" class="footer-logo"></a>
+                                <div class="footer-copyright">@ Copyright Apsara 2019-2020 All Rights Reserved. 飞天公链
+                                    版权所有
+                                </div>
+                            </div>
+                            <div class="footer-middle">
+                                <ul class="footer-contact">
+                                    <li><a class="email" href="#"
+                                           target="_blank"></a></li>
+                                    <li><a class="twitter" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="weibo" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="telegram" href="#" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-right"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#headshow").click(function () {
+            window.scroll(0, 0);
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        });
+    });
+    $(window).scroll(function () {
+        var scrollValue = $(window).scrollTop();
+        if (scrollValue > 40) {
+            $('.head').css('top', '-280px');
+            $('#root').css('margin-top', '150px');
+            $('.headlogo').css('margin-top', '-240px');
+            $('.headbox').css('margin-top', '280px');
+            $('#headshow').css('display', 'inline-block');
+        }
+        if (scrollValue < 40) {
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        }
+    });
+
+    function searchDetail() {
+        var keyword = $("#search-keyword").val();
+        window.location.href = "searchDetail?keyword=" + keyword;
+    }
+
+    jQuery(function($) {
+        $("body").keydown(function (event) {
+            if (event.keyCode == 13) {
+                searchDetail();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

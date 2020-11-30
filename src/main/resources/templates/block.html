@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Apsara 飞天公链</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="npprogress.css">
+    <link rel="stylesheet" href="styles.bd8c3.css">
+    <link rel="stylesheet" href="bd8c3e60200f6ef59551.css">
+    <link rel="stylesheet" href="tabs1.css">
+    <link rel="stylesheet" href="table1.css">
+
+    <script src="jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+
+<div id="head" class="head">
+    <div class="headbox">
+        <img class="headboxlogo" src="img/logo-b.png">
+        <div class="searchbigbox">
+            <ul id="headlogo" class="headlogo">
+                <img src="img/logo-b.png">
+            </ul>
+            <ul class="searchsmbox">
+                <input id="search-keyword" placeholder="请输入搜索内容: FAA地址 / 交易哈希 / 区块号" class="fsearchbox">
+                <a class="head-a iconfont iconsearch searchicon" onclick="searchDetail()"></a>
+            </ul>
+        </div>
+        <div class="headiconbox">
+            <a class="iconfont iconhomepage_fill" href="/"><span>首页</span></a>
+            <a id="headshow" class="iconfont iconzhedie-copy-copy" style="display: none;"></a>
+        </div>
+    </div>
+</div>
+
+
+<div id="root" class="root">
+    <div class="theme-light">
+        <div class="ant-layout">
+            <div class="full-height ant-layout">
+                <div class="ant-layout-content">
+
+                    <div class="content-container" style="min-height: 360px;">
+
+                        <div class="page-container">
+                            <div class="cf list-header"><h2 class="left"><span th:text="${'区块 '+session.block.blockNo}"></span></h2></div>
+
+                            <div>
+                                <div class="panel" id="blockOverviewContainer" style="position: relative;">
+                                    <div class="panel-header"><span>总览</span></div>
+                                    <div class="panel-body">
+                                        <div class="panel-group">
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>高度</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;" th:text="${session.block.blockNo}"></div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>时间</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">
+                                                    <span th:text="${#dates.format(session.block.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>区块哈希</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;" th:text="${session.block.hash}"></div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>父块哈希</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;" th:text="${session.block.prehash}"></div>
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">-->
+<!--                                                    <a class="link"style="margin-right: 5px;" th:text="${session.block.prehash}" th:href="${'blockDetail?blockNo'+((session.block.prehash)-1)}"></a>-->
+<!--                                                </div>-->
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>交易数量</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">
+                                                    <span th:text="${session.transs.size()+'个普通交易'}"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>叔块</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">0</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-group">
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>播报方</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">
+                                                    <i class="cell-icon" style="background-image: url('img/logo.png'); margin-right: 3px;"></i>
+                                                    <a class="link" th:text="${session.block.winner}" th:href="${'addressDetail?address='+session.block.winner}"></a>
+                                                </div>
+                                            </div>
+
+<!--                                            <div class="panel-row">-->
+<!--                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>难度</span>:</label></div>-->
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;"></div>-->
+<!--                                            </div>-->
+
+<!--                                            <div class="panel-row">-->
+<!--                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>总难度</span>:</label></div>-->
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;"></div>-->
+<!--                                            </div>-->
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>奖励</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">
+                                                    <span th:text="${session.block.rewardHuman+session.block.feeHuman+' FAA (区块奖励:'+session.block.rewardHuman+' FAA + 手续费:'+session.block.feeHuman+' FAA)'}"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>手续费</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">
+                                                    <span th:text="${session.block.feeHuman+' FAA'}"></span>
+                                                </div>
+                                            </div>
+
+<!--                                            <div class="panel-row">-->
+<!--                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>Gas 限额</span>:</label></div>-->
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;"></div>-->
+<!--                                            </div>-->
+<!--                                            -->
+<!--                                            <div class="panel-row">-->
+<!--                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>Gas 消耗</span>:</label></div>-->
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;"></div>-->
+<!--                                            </div>-->
+<!--                                            -->
+<!--                                            <div class="panel-row">-->
+<!--                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>Gas 均价</span>:</label></div>-->
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;"></div>-->
+<!--                                            </div>-->
+
+                                        </div>
+
+                                        <div class="panel-group">
+<!--                                            <div class="panel-row">-->
+<!--                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>Nonce值</span>:</label></div>-->
+<!--                                                <div class="panel-row-value" style="flex: 2.2 1 0%;"></div>-->
+<!--                                            </div>-->
+
+                                            <div class="panel-row">
+                                                <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>附加数据</span>:</label></div>
+                                                <div class="panel-row-value" style="flex: 2.2 1 0%;">
+                                                    <span th:text="${'[err: 0, hash: '+session.block.hash}+']'"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="margin-top-md">
+                                    <div class="ant-tabs ant-tabs-top ant-tabs-line">
+                                        <div role="tablist" class="ant-tabs-bar" tabindex="0">
+                                            <div class="ant-tabs-nav-container">
+                                                <div class="ant-tabs-nav-wrap">
+                                                    <div class="ant-tabs-nav-scroll">
+                                                        <div class="ant-tabs-nav ant-tabs-nav-animated">
+                                                            <div>
+                                                                <div role="tab" aria-disabled="false"
+                                                                     aria-selected="true"
+                                                                     class="ant-tabs-tab-active ant-tabs-tab">
+                                                                    <span>普通交易</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+                                                                 style="transform: translate3d(0px, 0px, 0px); width: 96px; display: block;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ant-tabs-content ant-tabs-content-animated"
+                                             style="margin-left: 0%;">
+                                            <div role="tabpanel" aria-hidden="false"
+                                                 class="ant-tabs-tabpane ant-tabs-tabpane-active">
+                                                <div class="blockinfo-txns">
+                                                    <div class="ant-table-wrapper">
+                                                        <div class="ant-spin-nested-loading">
+                                                            <div class="ant-spin-container">
+                                                                <div class="ant-table ant-table-default ant-table-scroll-position-left">
+                                                                    <div class="ant-table-content">
+                                                                        <div class="ant-table-body">
+                                                                            <table class="">
+                                                                                <thead class="ant-table-thead">
+                                                                                <tr>
+                                                                                    <th class="nopadding-right with-icon-left-header">
+                                                                                        <div><span>交易哈希</span></div>
+                                                                                    </th>
+                                                                                    <th class="nowrap">
+                                                                                        <div><span>交易类型</span></div>
+                                                                                    </th>
+                                                                                    <th class="">
+                                                                                        <div><span>发送方</span></div>
+                                                                                    </th>
+                                                                                    <th class="">
+                                                                                        <div><span>接收方</span></div>
+                                                                                    </th>
+                                                                                    <th class="nowrap ant-table-align-right" style="text-align: right;">
+                                                                                        <div><span>金额</span></div>
+                                                                                    </th>
+                                                                                    <th class="nowrap ant-table-align-right" style="text-align: right;">
+                                                                                        <div><span>手续费</span></div>
+                                                                                    </th>
+                                                                                </tr>
+                                                                                </thead>
+
+                                                                                <tbody class="ant-table-tbody">
+
+                                                                                    <tr class="ant-table-row ant-table-row-level-0" data-row-key="1" th:each="trans:${session.transs}">
+                                                                                        <td class="nopadding-right with-icon-left-header">
+                                                                                            <a  class="link cell-text-ellipsis with-icon-left hash" style="width: 150px;" th:text="${trans.hash}" th:href="${'transDetail?hash='+trans.hash}"></a>
+                                                                                        </td>
+
+                                                                                        <td class="nowrap">FAA交易</td>
+
+                                                                                        <td class="">
+                                                                                            <div class="with-icon-right">
+                                                                                                <a class="link cell-text-ellipsis hash" style="width: 150px;" th:text="${trans.fromAddress}" th:href="${'addressDetail?address='+trans.fromAddress}"></a>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                        <td class="">
+                                                                                            <div class="with-icon-right">
+                                                                                                <a class="link cell-text-ellipsis hash" style="width: 150px;" th:text="${trans.toAddress}" th:href="${'addressDetail?address='+trans.toAddress}"></a>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                        <td class="nowrap" style="text-align: right;" th:text="${#numbers.formatDecimal(trans.valueHuman,1,5)+' FAA'}"></td>
+
+                                                                                        <td class="nowrap"style="text-align: right;" th:text="${#numbers.formatDecimal(trans.feeHuman,1,5)+' FAA'}"></td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="view-width">
+                        <div class="footer relative" id="footerContainer">
+                            <div class="footer-left"><a href="#" class="footer-logo"></a>
+                                <div class="footer-copyright">@ Copyright Apsara 2019-2020 All Rights Reserved. 飞天公链
+                                    版权所有
+                                </div>
+                            </div>
+                            <div class="footer-middle">
+                                <ul class="footer-contact">
+                                    <li><a class="email" href="#"
+                                           target="_blank"></a></li>
+                                    <li><a class="twitter" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="weibo" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="telegram" href="#" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-right"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#headshow").click(function () {
+            window.scroll(0, 0);
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        });
+    });
+    $(window).scroll(function () {
+        var scrollValue = $(window).scrollTop();
+        if (scrollValue > 40) {
+            $('.head').css('top', '-280px');
+            $('#root').css('margin-top', '150px');
+            $('.headlogo').css('margin-top', '-240px');
+            $('.headbox').css('margin-top', '280px');
+            $('#headshow').css('display', 'inline-block');
+        }
+        if (scrollValue < 40) {
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        }
+    });
+
+    function searchDetail() {
+        var keyword = $("#search-keyword").val();
+        window.location.href = "searchDetail?keyword=" + keyword;
+    }
+
+    jQuery(function($) {
+        $("body").keydown(function (event) {
+            if (event.keyCode == 13) {
+                searchDetail();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

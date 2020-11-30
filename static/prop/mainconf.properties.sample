@@ -1,0 +1,35 @@
+# main switch
+isopenall=1
+
+# P2P bootstrap server
+bootnode=127.0.0.1:20201
+
+# node miner
+miner=FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# Private key, TODO: 上面的miner矿工地址从private key获取
+key.private =
+
+# fff test 0 close
+ffftest=1
+
+# 默认使用main net，可选main|dev
+# 如果使用main net，种子节点写死在代码CommonUtil里面
+# 如果使用dev net，种子节点通过p2p.seedNodes配置
+network = dev
+
+# p2p server监听地址和端口
+p2p.listenIp = 0.0.0.0
+p2p.listenPort = 9011
+
+# p2p client地址，如果没有指定则获取本机公网地址/内网地址
+p2p.myIP = 192.168.1.100
+
+# p2p种子节点, 节点列表通过逗号分隔
+p2p.seedNodes = 192.168.1.101
+
+# 消息队列大小
+net.maxMessageQueueSize = 4096
+
+# 最大的连接节点数
+net.maxOutboundConnections = 128

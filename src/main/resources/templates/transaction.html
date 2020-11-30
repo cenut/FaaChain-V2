@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Apsara 飞天公链</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="npprogress.css">
+    <link rel="stylesheet" href="styles.bd8c3.css">
+    <link rel="stylesheet" href="bd8c3e60200f6ef59551.css">
+
+    <script src="jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+
+<div id="head" class="head">
+    <div class="headbox">
+        <img class="headboxlogo" src="img/logo-b.png">
+        <div class="searchbigbox">
+            <ul id="headlogo" class="headlogo">
+                <img src="img/logo-b.png">
+            </ul>
+            <ul class="searchsmbox">
+                <input id="search-keyword" placeholder="请输入搜索内容: FAA地址 / 交易哈希 / 区块号" class="fsearchbox">
+                <a class="head-a iconfont iconsearch searchicon" onclick="searchDetail()"></a>
+            </ul>
+        </div>
+        <div class="headiconbox">
+            <a class="iconfont iconhomepage_fill" href="/"><span>首页</span></a>
+            <a id="headshow" class="iconfont iconzhedie-copy-copy" style="display: none;"></a>
+        </div>
+    </div>
+</div>
+
+
+<div id="root" class="root">
+    <div class="theme-light">
+        <div class="ant-layout">
+            <div class="full-height ant-layout">
+                <div class="ant-layout-content">
+
+                    <div class="content-container" style="min-height: 360px;">
+                        <div class="page-container tx-info relative" id="txInfoContainer">
+                            <div class="cf list-header">
+                                <h2 class="left"><span>交易详情</span><span class="tx-hash-title info-title" th:text="${session.transaction.hash}"></span></h2>
+                            </div>
+
+                            <div class="ant-tabs ant-tabs-top ant-tabs-line">
+                                <div class="ant-tabs-content ant-tabs-content-animated" style="margin-left: 0%;">
+                                    <div role="tabpanel" aria-hidden="false" class="ant-tabs-tabpane ant-tabs-tabpane-active">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <div class="panel-group">
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>交易哈希</span>:</label></div>
+                                                        <div class="panel-row-value" th:text="${session.transaction.hash}"></div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>交易结果</span>:</label></div>
+                                                        <div class="panel-row-value">
+                                                            <div class="chunk chunk-success" style="text-align: center; width: auto;">
+                                                                <span>交易成功</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>所在区块</span>:</label></div>
+                                                        <div class="panel-row-value">
+                                                            <div>
+                                                                <a class="link" th:text="${session.transaction.blockNo}" th:href="${'blockDetail?blockNo='+session.transaction.blockNo}" style="margin-right: 5px;"></a><span>
+                                                                (<span><span th:text="${session.confirm+'个确认'}"></span></span>)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>时间</span>:</label></div>
+                                                        <div class="panel-row-value">
+                                                            <div>
+                                                                <span th:text="${#dates.format(session.transaction.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>发送方</span>:</label></div>
+                                                        <div class="panel-row-value">
+                                                            <a class="link" th:text="${session.transaction.fromAddress}" th:href="${'addressDetail?address='+session.transaction.fromAddress}"></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>接收方</span>:</label></div>
+                                                        <div class="panel-row-value">
+                                                            <a class="link" th:text="${session.transaction.toAddress}" th:href="${'addressDetail?address='+session.transaction.toAddress}"></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>金额</span>:</label></div>
+                                                        <div class="panel-row-value ">
+                                                            <span th:text="${#numbers.formatDecimal(session.transaction.valueHuman,1,3)+' FAA'}"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label"><label><span>手续费</span>:</label></div>
+                                                        <div class="panel-row-value">
+                                                            <span th:text="${#numbers.formatDecimal(session.transaction.feeHuman,1,3)+' FAA'}"></span>
+                                                        </div>
+                                                    </div>
+
+<!--                                                    <div class="panel-row">-->
+<!--                                                        <div class="panel-row-label">-->
+<!--                                                            <label><span>Gas 限额</span>:</label></div>-->
+<!--                                                        <div class="panel-row-value ">90000</div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="panel-row">-->
+<!--                                                        <div class="panel-row-label">-->
+<!--                                                            <label><span>Gas 消耗</span>:</label></div>-->
+<!--                                                        <div class="panel-row-value ">54048</div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="panel-row">-->
+<!--                                                        <div class="panel-row-label">-->
+<!--                                                            <label><span>Gas 价格</span>:</label></div>-->
+<!--                                                        <div class="panel-row-value ">35.00 Gwei</div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="panel-row">-->
+<!--                                                        <div class="panel-row-label">-->
+<!--                                                            <label>Nonce;{Position}:</label></div>-->
+<!--                                                        <div class="panel-row-value ">50450 | {0}</div>-->
+<!--                                                    </div>-->
+
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label">
+                                                            <label><span>交易备注</span>:</label></div>
+                                                        <div class="panel-row-value ">
+                                                            <div class="mult-text ">
+                                                                [none]
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-row">
+                                                        <div class="panel-row-label">
+                                                            <label><span>事件日志</span>:</label></div>
+                                                        <div class="panel-row-value ">
+                                                            <div class="mult-text" th:text="${'[err: 0, txhash: '+session.transaction.hash}+']'"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="exchange-link-container relative" id="exchangeLinkContainer">
+                                <div class="panel-group" style="border: 0px; padding-bottom: 6px;">
+                                    <div class="panel-row">
+                                        <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>其它区块链浏览器</span>:</label></div>
+                                        <div class="panel-row-value " style="flex: 1.8 1 0%;">
+                                            <div style="margin-left: 2px;"><a class="exchange-link-item relative"><span>coming soon</span></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="view-width">
+                        <div class="footer relative" id="footerContainer">
+                            <div class="footer-left"><a href="#" class="footer-logo"></a>
+                                <div class="footer-copyright">@ Copyright Apsara 2019-2020 All Rights Reserved. 飞天公链
+                                    版权所有
+                                </div>
+                            </div>
+                            <div class="footer-middle">
+                                <ul class="footer-contact">
+                                    <li><a class="email" href="#"
+                                           target="_blank"></a></li>
+                                    <li><a class="twitter" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="weibo" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="telegram" href="#" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-right"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#headshow").click(function () {
+            window.scroll(0, 0);
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        });
+    });
+    $(window).scroll(function () {
+        var scrollValue = $(window).scrollTop();
+        if (scrollValue > 40) {
+            $('.head').css('top', '-280px');
+            $('#root').css('margin-top', '150px');
+            $('.headlogo').css('margin-top', '-240px');
+            $('.headbox').css('margin-top', '280px');
+            $('#headshow').css('display', 'inline-block');
+        }
+        if (scrollValue < 40) {
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        }
+    });
+
+    function searchDetail() {
+        var keyword = $("#search-keyword").val();
+        window.location.href = "searchDetail?keyword=" + keyword;
+    }
+
+    jQuery(function($) {
+        $("body").keydown(function (event) {
+            if (event.keyCode == 13) {
+                searchDetail();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

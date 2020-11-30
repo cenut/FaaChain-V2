@@ -1,0 +1,10 @@
+.idea/
+.settings/
+.mvn/
+target/
+logs-chain/
+!0project/
+
+*.iml
+src/main/resources/application.properties
+static/prop/mainconf.properties

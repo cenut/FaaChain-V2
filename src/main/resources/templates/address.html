@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Apsara 飞天公链</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="npprogress.css">
+    <link rel="stylesheet" href="styles.bd8c3.css">
+    <link rel="stylesheet" href="bd8c3e60200f6ef59551.css">
+    <link rel="stylesheet" href="tabs1.css">
+    <link rel="stylesheet" href="table1.css">
+
+    <script src="jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+
+<div id="head" class="head">
+    <div class="headbox">
+        <img class="headboxlogo" src="img/logo-b.png">
+        <div class="searchbigbox">
+            <ul id="headlogo" class="headlogo">
+                <img src="img/logo-b.png">
+            </ul>
+            <ul class="searchsmbox">
+                <input id="search-keyword" placeholder="请输入搜索内容: FAA地址 / 交易哈希 / 区块号" class="fsearchbox">
+                <a class="head-a iconfont iconsearch searchicon" onclick="searchDetail()"></a>
+            </ul>
+        </div>
+        <div class="headiconbox">
+            <a class="iconfont iconhomepage_fill" href="/"><span>首页</span></a>
+            <a id="headshow" class="iconfont iconzhedie-copy-copy" style="display: none;"></a>
+        </div>
+    </div>
+</div>
+
+
+<div id="root" class="root">
+    <div class="theme-light">
+        <div class="ant-layout">
+            <div class="full-height ant-layout">
+                <div class="ant-layout-content">
+
+                    <div class="content-container" style="min-height: 360px;">
+
+                        <div class="page-container account-info relative" id="accountCopyContainer">
+                            <div class="cf list-header">
+                                <h2 class="left"><span>普通地址</span><span class="tx-hash-title info-title" th:text="${session.balance.address}"></span></h2>
+                            </div>
+
+                            <div class="account-overview relative" id="accountOverviewContainerId">
+                                <div class="flex-left">
+                                    <div class="value-overview">
+                                        <div style="height: 288px; padding-top: 100px;"><h2><span>飞天公链余额</span></h2>
+                                            <p class="account-balance" th:text="${#numbers.formatDecimal(session.balance.balancef,1,3)+' FAA'}"></p>
+                                        </div>
+
+                                        <div class="value-footer">
+                                            <div class="footer-left">
+                                                <p class="value-title">RMB</p>
+                                                <p class="value-item"><span th:text="${'￥'+#numbers.formatDecimal(session.faaPrice*7*session.balance.balancef,1,2)}"></span></p>
+                                            </div>
+                                            <div class="footer-right">
+                                                <p class="value-title">BTC</p>
+                                                <p class="value-item"><span class="btc-icon" th:text="${#numbers.formatDecimal(session.faaPrice/9800*session.balance.balancef,1,7)}"></span></p>
+                                            </div>
+                                            <div class="splite-line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-right">
+                                    <div class="token-chart-wrap">
+                                        <div class="panel" style="border: none; padding-top: 22px;">
+                                            <div class="panel-body">
+                                                <div class="panel-row">
+                                                    <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>持有代币价值</span>:</label></div>
+                                                    <div class="panel-row-value" style="flex: 1.5 1 0%;">
+                                                        <span><span>0 FAA</span><span style="margin-left: 8px;"><span>￥0.00</span></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-row">
+                                                    <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>持有代币种类</span>:</label></div>
+                                                    <div class="panel-row-value" style="flex: 1.5 1 0%;"><span>0</span></div>
+                                                </div>
+                                                <div class="panel-row">
+                                                    <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>代币持仓分布</span>:</label></div>
+                                                    <div class="panel-row-value" style="flex: 1.5 1 0%;"><span><span>此地址没有代币</span></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="exchange-link-container relative" id="exchangeLinkContainer" style="padding-left: 10px;">
+                                <div class="panel-group" style="border: 0px; padding-bottom: 6px;">
+                                    <div class="panel-row">
+                                        <div class="panel-row-label" style="flex: 1 1 0%;"><label><span>其它区块链浏览器</span>:</label></div>
+                                        <div class="panel-row-value " style="flex: 1.8 1 0%;">
+                                            <div style="margin-left: 2px;"><a class="exchange-link-item relative"><span>coming soon</span></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="margin-top-md">
+                                <div class="ant-tabs ant-tabs-top ant-tabs-line">
+                                    <div role="tablist" class="ant-tabs-bar" tabindex="0">
+                                        <div class="ant-tabs-nav-container">
+
+                                            <div class="ant-tabs-nav-wrap">
+                                                <div class="ant-tabs-nav-scroll">
+                                                    <div class="ant-tabs-nav ant-tabs-nav-animated">
+                                                        <div>
+                                                            <div role="tab" aria-disabled="false" aria-selected="true" class="ant-tabs-tab-active ant-tabs-tab">
+                                                                <span>普通交易</span>
+                                                            </div>
+<!--                                                            <div role="tab" aria-disabled="false" aria-selected="false"-->
+<!--                                                                 class=" ant-tabs-tab"><span>代币交易</span></div>-->
+                                                        </div>
+                                                        <div class="ant-tabs-ink-bar ant-tabs-ink-bar-animated" style="transform: translate3d(0px, 0px, 0px); width: 96px; display: block;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ant-tabs-content ant-tabs-content-animated" style="margin-left: 0%;">
+                                        <div role="tabpanel" aria-hidden="false" class="ant-tabs-tabpane ant-tabs-tabpane-active">
+                                            <div class="account-txns">
+                                                <div class="ant-table-wrapper">
+                                                    <div class="ant-spin-nested-loading">
+                                                        <div class="ant-spin-container">
+                                                            <div class="ant-table ant-table-default ant-table-scroll-position-left">
+                                                                <div class="ant-table-content">
+                                                                    <div class="ant-table-body">
+
+                                                                        <table class="">
+                                                                            <thead class="ant-table-thead">
+                                                                            <tr>
+                                                                                <th class="nopadding-right">
+                                                                                    <div><span>交易哈希</span></div>
+                                                                                </th>
+                                                                                <th class="nowrap">
+                                                                                    <div><span>所在区块</span></div>
+                                                                                </th>
+                                                                                <th class="">
+                                                                                    <div><span>时间</span></div>
+                                                                                </th>
+                                                                                <th class="">
+                                                                                    <div><span>发送方</span></div>
+                                                                                </th>
+                                                                                <th class="">
+                                                                                    <div><span>接收方</span></div>
+                                                                                </th>
+                                                                                <th class="nowrap ant-table-align-right" style="text-align: right;">
+                                                                                    <div><span>金额</span></div>
+                                                                                </th>
+                                                                                <th class="nowrap ant-table-align-right" style="text-align: right;">
+                                                                                    <div><span>手续费</span></div>
+                                                                                </th>
+                                                                                <th class="">
+                                                                                    <div><span>类型</span></div>
+                                                                                </th>
+                                                                            </tr>
+                                                                            </thead>
+
+                                                                            <tbody class="ant-table-tbody">
+
+                                                                                <tr class="ant-table-row ant-table-row-level-0" data-row-key="1" th:each="trans:${session.transList}">
+                                                                                    <td class="nopadding-right">
+                                                                                        <span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>
+                                                                                        <a class="link cell-text-ellipsis hash" style="width: 150px;" th:text="${trans.hash}" th:href="${'transDetail?hash='+trans.hash}"></a>
+                                                                                    </td>
+
+                                                                                    <td class="nowrap">
+                                                                                        <a class="link cell-text-ellipsi" style="width: 150px;" th:text="${trans.blockNo}" th:href="${'blockDetail?blockNo='+trans.blockNo}"></a>
+                                                                                    </td>
+
+                                                                                    <td th:text="${#dates.format(trans.dateCreated, 'MM-dd HH:mm:ss')}"></td>
+
+                                                                                    <td>
+                                                                                        <div class="with-icon-right">
+                                                                                            <a th:if="${trans.fromAddress==session.balance.address}" class="link cell-text-ellipsis hash disabled-link" style="width: 150px;" th:text="${trans.fromAddress}" th:href="${'addressDetail?address='+trans.fromAddress}"></a>
+                                                                                            <a th:if="${trans.fromAddress!=session.balance.address}" class="link cell-text-ellipsis hash" style="width: 150px;" th:text="${trans.fromAddress}" th:href="${'addressDetail?address='+trans.fromAddress}"></a>
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <div class="with-icon-right">
+                                                                                            <a th:if="${trans.toAddress==session.balance.address}" class="link cell-text-ellipsis hash disabled-link" style="width: 150px;" th:text="${trans.toAddress}" th:href="${'addressDetail?address='+trans.toAddress}"></a>
+                                                                                            <a th:if="${trans.toAddress!=session.balance.address}" class="link cell-text-ellipsis hash" style="width: 150px;" th:text="${trans.toAddress}" th:href="${'addressDetail?address='+trans.toAddress}"></a>
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                    <td class="nowrap" style="text-align: right;" th:text="${#numbers.formatDecimal(trans.valueHuman,1,5)+' FAA'}"></td>
+
+                                                                                    <td class="nowrap" style="text-align: right;" th:text="${#numbers.formatDecimal(trans.feeHuman,1,5)+' FAA'}"></td>
+
+                                                                                    <td>
+                                                                                        <i th:if="${trans.fromAddress==session.balance.address}" class="account-type-tag out"><span>转出</span></i>
+                                                                                        <i th:if="${trans.toAddress==session.balance.address}" class="account-type-tag in"><span>转入</span></i>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pagination"><p class="max-limit-tip"></p></div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" aria-hidden="true"
+                                             class="ant-tabs-tabpane ant-tabs-tabpane-inactive"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="view-width">
+                        <div class="footer relative" id="footerContainer">
+                            <div class="footer-left"><a href="#" class="footer-logo"></a>
+                                <div class="footer-copyright">@ Copyright Apsara 2019-2020 All Rights Reserved. 飞天公链
+                                    版权所有
+                                </div>
+                            </div>
+                            <div class="footer-middle">
+                                <ul class="footer-contact">
+                                    <li><a class="email" href="#"
+                                           target="_blank"></a></li>
+                                    <li><a class="twitter" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="weibo" href="#" target="_blank"></a>
+                                    </li>
+                                    <li><a class="telegram" href="#" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-right"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#headshow").click(function () {
+            window.scroll(0, 0);
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        });
+    });
+    $(window).scroll(function () {
+        var scrollValue = $(window).scrollTop();
+        if (scrollValue > 40) {
+            $('.head').css('top', '-280px');
+            $('#root').css('margin-top', '150px');
+            $('.headlogo').css('margin-top', '-240px');
+            $('.headbox').css('margin-top', '280px');
+            $('#headshow').css('display', 'inline-block');
+        }
+        if (scrollValue < 40) {
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        }
+    });
+
+    function searchDetail() {
+        var keyword = $("#search-keyword").val();
+        window.location.href = "searchDetail?keyword=" + keyword;
+    }
+
+    jQuery(function($) {
+        $("body").keydown(function (event) {
+            if (event.keyCode == 13) {
+                searchDetail();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

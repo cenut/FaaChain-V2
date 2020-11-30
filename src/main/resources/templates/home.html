@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Apsara 飞天公链</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="home1.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="npprogress.css">
+    <link rel="stylesheet" href="styles.bd8c3.css">
+    <link rel="stylesheet" href="bd8c3e60200f6ef59551.css">
+
+    <script src="jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+
+<div id="head" class="head">
+    <div class="headbox">
+        <img class="headboxlogo" src="img/logo-b.png">
+        <div class="searchbigbox">
+            <ul id="headlogo" class="headlogo">
+                <img src="img/logo-b.png">
+            </ul>
+            <ul class="searchsmbox">
+                <input id="search-keyword" placeholder="请输入搜索内容: FAA地址 / 交易哈希 / 区块号" class="fsearchbox">
+                <a class="head-a iconfont iconsearch searchicon" onclick="searchDetail()"></a>
+            </ul>
+        </div>
+        <div class="headiconbox">
+            <a class="iconfont iconhomepage_fill"><span>首页</span></a>
+            <a id="headshow" class="iconfont iconzhedie-copy-copy" style="display: none;"></a>
+        </div>
+    </div>
+</div>
+
+
+<div id="root" class="root">
+    <div class="theme-light">
+        <div class="ant-layout">
+            <div class="full-height ant-layout">
+
+                <div class="ant-layout-content">
+                    <div class="content-container" style="min-height: 360px;">
+                        <div class="view-width home-container" id="homeContainer"><p class="notification-bar"></p>
+
+
+                            <div class="ant-row" style="margin-left: -12px; margin-right: -12px;">
+
+                                <div class="ant-col-6" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="overview-wrap">
+                                        <div class="card small-card chart-card card-bg-hashrate">
+                                            <span class="card-title"><span>价格</span></span>
+                                            <div class="card-body"><span class="card-content" >￥ <span th:text="${#numbers.formatDecimal(session.faaPrice*7,1,3)}"></span></span>
+                                                <span class="aside">
+                                                    <span th:if="${session.faaRose>=0}" class="increase-text" th:text="${' (+'+session.faaRose+'%)'}"></span>
+                                                    <span th:if="${session.faaRose<0}" class="decline-text" th:text="${' ('+session.faaRose+'%)'}"></span>
+                                                </span>
+                                                <div>
+                                                    <div class="echarts-for-react " style="height: 40px;">
+                                                        <div class="img1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <span class="btc-icon">=<span th:text="${#numbers.formatDecimal(session.faaPrice/9800,1,7)}"></span></span>
+                                                <span>$=<span th:text="${#numbers.formatDecimal(session.faaPrice,1,3)}"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ant-col-6" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="overview-wrap">
+                                        <div class="card small-card chart-card card-bg-market"><span class="card-title"><span>市值</span></span>
+                                            <div class="card-body"><span class="card-content">￥ <span th:text="${#numbers.formatDecimal(session.faaPrice*7*168000000,1,0)}"></span></span>
+                                                <span class="aside"><span class=""></span></span>
+                                                <div>
+                                                    <div class="echarts-for-react" style="height: 40px;">
+                                                        <div class="img2"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <span><span></span></span>
+                                                <span>$=<span th:text="${#numbers.formatDecimal(session.faaPrice*168000000,1,0)}"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ant-col-6" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="overview-wrap">
+                                        <div class="card small-card text-card card-bg-blockchain">
+                                            <span class="card-title"><span>区块链</span></span>
+                                            <p style="margin-top: 12px;"><span class="card-content" th:text="${session.blockCount}"></span><span><span>个区块</span></span></p>
+                                            <p><span class="card-content" th:text="${session.transactionCount}"></span><span><span>笔交易</span></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ant-col-6" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="overview-wrap">
+                                        <div class="card small-card text-card card-bg-price">
+                                            <span class="card-title"><span><span>FAA总数</span></span></span>
+                                            <p>
+                                                <span class="card-content"><span><span th:text="${#numbers.formatDecimal(session.faaCount,1,0)}"></span></span></span>
+                                                <span class="">枚</span>
+                                            </p>
+                                            <span class="card-title"><span><span>地址总数</span></span></span>
+                                            <p>
+                                                <span class="card-content"><span th:text="${session.addressCount}"></span></span>
+                                                <span class="">个</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="ant-row" style="margin-left: -12px; margin-right: -12px;">
+
+                                <div class="ant-col-12" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="network-wrap">
+                                        <div id="networkContainer" style="height: 170px; position: relative;">
+                                            <div class="card" style="height: 170px;">
+                                                <div class="card-header">
+                                                    <div class="card-title"><span>网络状态</span></div>
+                                                </div>
+                                                <div class="card-body" style="padding-top: 15px;">
+                                                    <div>
+                                                        <ul>
+                                                            <li><span class="form-label"><span>平均出块时间</span></span>
+                                                                <span class="form-field" th:text="${#numbers.formatDecimal(session.avgBlockS,1,2)+' 秒'}"></span>
+                                                            </li>
+                                                            <li><span class="form-label"><span>拥堵区块数</span></span>
+                                                                <span class="form-field">0 个</span>
+                                                            </li>
+                                                            <li><span class="form-label"><span>拥堵交易数</span></span>
+                                                                <span class="form-field"><span>0 笔</span></span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ant-col-12" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="network-wrap">
+                                        <div id="feeContainer" style="height: 170px; position: relative;">
+                                            <div class="card" style="height: 170px;">
+                                                <div class="card-header">
+                                                    <div class="card-title"><span>交易手续费</span></div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="transfee-wrap" style="margin-top: -9px;">
+                                                        <div class="transfee-item">
+                                                            <div class="chunk chunk-primary" style="padding: 13px 2px;">
+                                                                <h4><span>当前手续费</span></h4>
+                                                                <p><span th:text="${#numbers.formatDecimal(session.feeNow,1,3)}" style="font-size: 24px; margin-left: 0;"></span><span>FAA</span></p></div>
+                                                        </div>
+                                                        <div class="transfee-item">
+                                                            <div class="chunk chunk-primary" style="padding: 13px 2px;">
+                                                                <h4><span>当前成本</span></h4>
+                                                                <p>￥<span th:text="${#numbers.formatDecimal(session.feeNow*session.faaPrice*7,1,3)}" style="font-size: 24px; margin-left: 0;"></span></p></div>
+                                                        </div>
+                                                        <div class="transfee-item">
+                                                            <div class="chunk chunk-secondary" style="padding: 13px 2px;">
+                                                                <h4><span>平均手续费</span></h4>
+                                                                <p>1.00<span>FAA</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="transfee-item">
+                                                            <div class="chunk chunk-secondary" style="padding: 13px 2px;">
+                                                                <h4><span>平均成本</span></h4>
+                                                                <p>￥<span th:text="${#numbers.formatDecimal(session.faaPrice*7,1,3)}" style="font-size: 24px; margin-left: 0;"></span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="ant-row" style="margin-left: -12px; margin-right: -12px;">
+
+                                <div class="ant-col-12" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="block-wrap">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-title"><span>最近出块</span></div>
+<!--                                                <div class="card-extra link"><a class="link" href="/blocks"><span>全部</span></a></div>-->
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="scrollbox div-scroll">
+                                                    <div class="scrollbox-content">
+
+                                                        <div class="block-row" th:each="block:${session.blockList}">
+                                                            <div class="block-height">
+                                                                <div data-radium="true">
+                                                                    <div data-radium="true" style="animation: flash-radium-animation-289dfd44 1s;">
+                                                                        <div class="chunk chunk-primary" style="padding: 2px 0px 0px;">
+                                                                            <a th:href="${'blockDetail?blockNo='+block.blockNo}">
+                                                                                <p data-radium="true"><span>区块</span><span th:text="${block.blockNo}"></span></p>
+                                                                                <h4 data-radium="true"><span th:text="${#dates.format(block.dateCreated, '时间 HH:mm:ss')}"></span></h4>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <style>
+                                                                        @keyframes flash-radium-animation-289dfd44 {
+                                                                               from {opacity: 1;} 25% {opacity: 0;} 50% {opacity: 1;} 75% {opacity: 0;} to {opacity: 1;}
+                                                                        }
+                                                                    </style>
+                                                                </div>
+                                                            </div>
+                                                            <div class="block-detail">
+                                                                <p>
+                                                                    <span class="minedby"><span>播报方</span></span>
+                                                                    <span class="miner-hash">
+                                                                        <a class="link bold" th:text="${#strings.substring(block.winner,0,33)+' . . .'}" th:href="${'addressDetail?address='+block.winner}"></a>
+                                                                    </span>
+                                                                </p>
+                                                                <div class="block-txns-reward">
+                                                                    <div class="block-txns">
+                                                                        <div class="chunk chunk-tertiary" style="display: block;text-align: center; padding: 0px 4px;">
+                                                                            <span>共<span th:text="${block.tranCount}"></span>笔交易，手续费<span th:text="${#numbers.formatDecimal(block.feeHuman,1,2)}"></span>FAA</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-flex-right" style="width: 230px;">
+                                                                        <i></i><span><span>区块奖励 </span><span th:text="${#numbers.formatDecimal(block.rewardHuman+block.feeHuman,1,3)}"></span> FAA</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ant-col-12" style="padding-left: 12px; padding-right: 12px;">
+                                    <div class="txns-wrap">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-title"><span>最近交易</span></div>
+<!--                                                <div class="card-extra link"><a class="link" href="/txns"><span>全部</span></a></div>-->
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="scrollbox div-scroll">
+                                                    <div class="scrollbox-content">
+
+                                                        <div class="txns-row relative" id="latestTxContainer" th:each="trans:${session.transactionList}">
+                                                            <div class="item-row">
+                                                                <p class="txns-hash bold"><span class="txns-hash-title"><span>交易#</span></span>
+                                                                    <a class="link hash-value hash" th:text="${trans.hash}" th:href="${'transDetail?hash='+trans.hash}"></a>
+                                                                </p>
+                                                                <span class="create_ts" th:text="${#dates.format(trans.dateCreated, '时间 HH:mm:ss')}"></span>
+                                                            </div>
+                                                            <div class="item-row">
+                                                                <p class="transer">
+                                                                    <span class="txns-hash-title"><span>发送方</span></span>
+                                                                    <a class="link from" th:text="${trans.fromAddress}" th:href="${'addressDetail?address='+trans.fromAddress}"></a>
+                                                                    <span class="txns-hash-title" style="margin-left: 8px; margin-right: 8px;"><span>接收方</span></span>
+                                                                    <a class="link to" th:text="${trans.toAddress}" th:href="${'addressDetail?address='+trans.toAddress}"></a>
+                                                                </p>
+                                                                <span class="txns-amout"><span>数额 </span><span th:text="${#numbers.formatDecimal(trans.valueHuman,1,3)+' FAA'}"></span></span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="view-width">
+                    <div class="footer relative" id="footerContainer">
+                        <div class="footer-left"><a href="#" class="footer-logo"></a>
+                            <div class="footer-copyright">@ Copyright Apsara  2019-2020 All Rights Reserved. 飞天公链 版权所有</div>
+                        </div>
+                        <div class="footer-middle">
+                            <ul class="footer-contact">
+                                <li><a class="email" href="#"
+                                       target="_blank"></a></li>
+                                <li><a class="twitter" href="#" target="_blank"></a>
+                                </li>
+                                <li><a class="weibo" href="#" target="_blank"></a>
+                                </li>
+                                <li><a class="telegram" href="#" target="_blank"></a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-right">
+<!--                            <div class="ant-select ant-select-enabled">-->
+<!--                                <div class="ant-select-selection-->
+<!--            ant-select-selection&#45;&#45;single" role="combobox" aria-autocomplete="list" aria-haspopup="true"-->
+<!--                                     aria-expanded="false" tabindex="0">-->
+<!--                                    <div class="ant-select-selection__rendered">-->
+<!--                                        <div class="ant-select-selection-selected-value"-->
+<!--                                             style="display: block; opacity: 1;"><span class="option-item"><i-->
+<!--                                                class="locale-icon locale-zh-CN"></i>中文</span></div>-->
+<!--                                    </div>-->
+<!--                                    <span class="ant-select-arrow" unselectable="on" style="user-select: none;"><i-->
+<!--                                            class="anticon anticon-down ant-select-arrow-icon"><svg-->
+<!--                                            viewBox="64 64 896 896" class="" data-icon="down" width="1em" height="1em"-->
+<!--                                            fill="currentColor" aria-hidden="true"><path-->
+<!--                                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg></i></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#headshow").click(function () {
+            window.scroll(0, 0);
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        });
+    });
+    $(window).scroll(function () {
+        var scrollValue = $(window).scrollTop();
+        if (scrollValue > 40) {
+            $('.head').css('top', '-280px');
+            $('#root').css('margin-top', '150px');
+            $('.headlogo').css('margin-top', '-240px');
+            $('.headbox').css('margin-top', '280px');
+            $('#headshow').css('display', 'inline-block');
+        }
+        if (scrollValue < 40) {
+            $('.head').css('top', '0px');
+            $('#root').css('margin-top', '340px');
+            $('.headlogo').css('margin-top', '0px');
+            $('.headbox').css('margin-top', '0px');
+            $('#headshow').css('display', 'none');
+        }
+    });
+
+    function searchDetail() {
+        var keyword = $("#search-keyword").val();
+        window.location.href = "searchDetail?keyword=" + keyword;
+    }
+
+    jQuery(function($) {
+        $("body").keydown(function (event) {
+            if (event.keyCode == 13) {
+                searchDetail();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
